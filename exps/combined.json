@@ -1,7 +1,7 @@
 {
 
     "prefix": " ",
-    "name": "test19oct",
+    "name": "combined",
     "dataset": "omnibenchmark",
     "memory_size": 0,
     "memory_per_class": 0,
@@ -14,11 +14,11 @@
     "device": ["0","1","2","3"],
     "seed": [1993],
     
-    "tuned_epoch":250,
-    "init_lr":1,
-    "batch_size":768,
-    "weight_decay":0,
-    "min_lr":1,
+    "tuned_epoch":50,
+    "init_lr":0.05,
+    "batch_size":16,
+    "weight_decay":0.0001,
+    "min_lr":0.1,
     "optimizer":"sgd",
     "vpt_type":"deep",
     "prompt_token_num":5,

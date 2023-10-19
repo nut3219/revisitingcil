@@ -73,7 +73,7 @@ You need to modify the path of the datasets in `./utils/data.py`  according to y
 Please follow the settings in the `exps` folder to prepare your json files, and then run:
 
 ```
-python main.py --config ./exps/[configname].json
+python main.py --config ./exps/combined.json
 ```
 
 

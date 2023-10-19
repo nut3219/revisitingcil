@@ -1,0 +1,32 @@
+{
+    "prefix": " ",
+    "name": "customcil_vpt_type_tuned_epoch_20_init_lr_0.01_batch_size_48_weight_decay_0.0005_min_lr_0_optimizer_sgd_vpt_type_shallow_prompt_token_num_5_loss_function_cross_entropy_transforms_mode_train",
+    "dataset": "omnibenchmark",
+    "memory_size": 0,
+    "memory_per_class": 0,
+    "fixed_memory": false,
+    "shuffle": true,
+    "init_cls": 30,
+    "increment": 30,
+    "model_name": "customcil",
+    "convnet_type": "pretrained_vit_b16_224_in21k",
+    "device": [
+        "0",
+        "1",
+        "2",
+        "3"
+    ],
+    "seed": [
+        1993
+    ],
+    "tuned_epoch": 20,
+    "init_lr": 0.01,
+    "batch_size": 48,
+    "weight_decay": 0.0005,
+    "min_lr": 0,
+    "optimizer": "sgd",
+    "vpt_type": "shallow",
+    "prompt_token_num": 5,
+    "loss_function": "cross_entropy",
+    "transforms_mode": "train"
+}

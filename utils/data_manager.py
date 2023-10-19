@@ -44,12 +44,29 @@ class DataManager(object):
             trsf = transforms.Compose(
                 [
                     *self._test_trsf,
-                    transforms.RandomHorizontalFlip(p=1.0),
+                    transforms.RandomHorizontalFlip(p=0.5),
                     *self._common_trsf,
                 ]
             )
         elif mode == "test":
             trsf = transforms.Compose([*self._test_trsf, *self._common_trsf])
+            
+        elif mode == "random":
+            print("randomddddddd22")
+            # trsf = transforms.Compose([*self._test_trsf])
+            trsf = transforms.Compose([
+            *self._test_trsf,
+            
+            transforms.RandomVerticalFlip(p=0.5),
+            transforms.RandomHorizontalFlip(p=0.5),
+            transforms.RandomGrayscale(p=0.2),
+            transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+            transforms.RandomApply([transforms.RandomRotation(30)], p=0.5),
+            transforms.RandomApply([transforms.RandomResizedCrop(size=(224, 224), scale=(0.08, 1.0), ratio=(3/4., 4/3.))], p=0.6),
+            # Optionally add normalization here
+            # transforms.Normalize(mean=[...], std=[...]),
+            ])
+
         else:
             raise ValueError("Unknown mode {}.".format(mode))
 

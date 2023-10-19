@@ -31,6 +31,26 @@ def get_convnet(args, pretrained=False):
         model.load_state_dict(torch.load("./pretrained_models/resnet152-f82ba261.pth"),strict=False)
         return model.eval()
     
+    if args["model_name"]=="customcil" :
+        from convs.vpt import build_promptmodel
+        if name=="pretrained_vit_b16_224":
+            basicmodelname="vit_base_patch16_224" 
+        elif name=="pretrained_vit_b16_224_in21k":
+            basicmodelname="vit_base_patch16_224_in21k"
+        
+        # print("modelname,",name,"basicmodelname",basicmodelname)
+        # print("tigger")
+        VPT_type="Deep"
+        if args["vpt_type"]=='shallow':
+            VPT_type="Shallow"
+        Prompt_Token_num=args["prompt_token_num"]
+
+        model = build_promptmodel(modelname=basicmodelname,  Prompt_Token_num=Prompt_Token_num, VPT_type=VPT_type)
+        prompt_state_dict = model.obtain_prompt()
+        model.load_prompt(prompt_state_dict)
+        model.out_dim=768
+        return model.eval()
+
     #SimpleCIL or SimpleCIL w/ Finetune
     elif name=="pretrained_vit_b16_224" or name=="vit_base_patch16_224":
         model=timm.create_model("vit_base_patch16_224",pretrained=True, num_classes=0)
@@ -57,14 +77,15 @@ def get_convnet(args, pretrained=False):
     
     # VPT
     elif '_vpt' in name:
-        if args["model_name"]=="adam_vpt":
+        if args["model_name"]=="adam_vpt" or args["model_name"]=="customcil" :
             from convs.vpt import build_promptmodel
             if name=="pretrained_vit_b16_224_vpt":
                 basicmodelname="vit_base_patch16_224" 
             elif name=="pretrained_vit_b16_224_in21k_vpt":
                 basicmodelname="vit_base_patch16_224_in21k"
+            print(name)
             
-            print("modelname,",name,"basicmodelname",basicmodelname)
+            # print("modelname,",name,"basicmodelname",basicmodelname)
             VPT_type="Deep"
             if args["vpt_type"]=='shallow':
                 VPT_type="Shallow"
@@ -76,7 +97,8 @@ def get_convnet(args, pretrained=False):
             model.out_dim=768
             return model.eval()
         else:
-            raise NotImplementedError("Inconsistent model name and model type")
+            raise NotImplementedError("Inconsistent model name and model types")
+
 
     elif '_adapter' in name:
         ffn_num=args["ffn_num"]
@@ -618,10 +640,11 @@ class MultiBranchCosineIncrementalNet(BaseNet):
             newargs['convnet_type']=newargs['convnet_type'].replace('_ssf','')
             print(newargs['convnet_type'])
             self.convnets.append(get_convnet(newargs)) #pretrained model without scale
-        elif 'vpt' in self.args['convnet_type']:
+        elif '224_in21k' in self.args['convnet_type']:
             newargs=copy.deepcopy(self.args)
             newargs['convnet_type']=newargs['convnet_type'].replace('_vpt','')
             print(newargs['convnet_type'])
+            print('vptttttt')
             self.convnets.append(get_convnet(newargs)) #pretrained model without vpt
         elif 'adapter' in self.args['convnet_type']:
             newargs=copy.deepcopy(self.args)

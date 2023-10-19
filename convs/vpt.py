@@ -40,7 +40,7 @@ class VPT_ViT(VisionTransformer):
                          drop_path_rate=drop_path_rate, embed_layer=embed_layer,
                          norm_layer=norm_layer, act_layer=act_layer)
                          
-        print('Using VPT model')
+        # print('Using VPT model')
         # load basic state_dict
         if basic_state_dict is not None:
             self.load_state_dict(basic_state_dict, False)

@@ -1,6 +1,7 @@
 {
     "prefix": " ",
     "dataset": "cifar224",
+    "name":"dd",
     "memory_size": 0,
     "memory_per_class": 0,
     "fixed_memory": false,
@@ -9,7 +10,7 @@
     "increment": 10,
     "model_name": "simplecil",
     "convnet_type": "pretrained_vit_b16_224_in21k",
-    "device": ["0"],
+    "device": ["1"],
     "seed": [1993],
     
     "tuned_epoch":0,

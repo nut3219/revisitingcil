@@ -1,0 +1,28 @@
+{
+
+    "prefix": " ",
+    "name": "testing",
+    "dataset": "omnibenchmark",
+    "memory_size": 0,
+    "memory_per_class": 0,
+    "fixed_memory": false,
+    "shuffle": true,
+    "init_cls": 30,
+    "increment": 30,
+    "model_name": "customcil",
+    "convnet_type": "pretrained_vit_b16_224_in21k",
+    "device": ["0","1","2","3"],
+    "seed": [1993],
+    
+    "tuned_epoch":33,
+    "init_lr":0.03,
+    "batch_size":512,
+    "weight_decay":0.004,
+    "min_lr":0,
+    "optimizer":"sgd",
+    "vpt_type":"deep",
+    "prompt_token_num":3,
+    "loss_function": "cross_entropy",
+    "transforms_mode":"train"
+}
+
